@@ -7,8 +7,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
+/**
+ * Entity mapper from query result
+ */
 public class TodoMapper {
 
+    /**
+     * Create entity instance from {@link ResultSet}
+     *
+     * @param resultSet query value, it must not be null
+     * @return entity instance
+     * @throws MappingException when it throws {@link SQLException}
+     */
     public Todo mapper(ResultSet resultSet) throws MappingException {
         try {
             int id = resultSet.getInt("ID");

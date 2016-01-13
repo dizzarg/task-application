@@ -5,6 +5,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * Database connection manager
+ */
 public class DatabaseManager {
 
     private final String url = "jdbc:h2:file:./data/sample";

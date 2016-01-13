@@ -1,6 +1,6 @@
 package org.kadyrov.todo.swing.model;
 
-import org.kadyrov.todo.dao.api.TodoDao;
+import org.kadyrov.todo.dao.api.Dao;
 import org.kadyrov.todo.dao.api.domain.Todo;
 import org.kadyrov.todo.dao.api.exception.DAOException;
 import org.kadyrov.todo.dao.jdbc.TodoDaoDB;
@@ -11,7 +11,7 @@ import java.util.List;
 
 public class TodoListModel extends AbstractListModel<Todo> {
 
-    TodoDao todoDao = new TodoDaoDB();
+    Dao todoDao = new TodoDaoDB();
     List<Todo> todos = new ArrayList<>();
 
     @Override
@@ -46,7 +46,7 @@ public class TodoListModel extends AbstractListModel<Todo> {
 
     public void remove(Todo todo) throws DAOException {
         int index = todos.indexOf(todo);
-        todoDao.removeTodo(todo.getId());
+        todoDao.remove(todo.getId());
         todos.remove(todo);
         fireIntervalRemoved(this, index, index);
     }

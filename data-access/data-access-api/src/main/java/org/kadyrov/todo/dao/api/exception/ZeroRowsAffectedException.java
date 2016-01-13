@@ -3,7 +3,7 @@ package org.kadyrov.todo.dao.api.exception;
 import java.sql.SQLException;
 
 /**
- * Created by kadyrovd on 12/7/2015.
+ * Exception throws if database query is not returned entities.
  */
 public class ZeroRowsAffectedException extends SQLException {
     public ZeroRowsAffectedException(String reason) {

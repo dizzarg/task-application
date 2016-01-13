@@ -1,6 +1,6 @@
 package org.kadyrov.todo.dao.jdbc;
 
-import org.kadyrov.todo.dao.api.TodoDao;
+import org.kadyrov.todo.dao.api.Dao;
 import org.kadyrov.todo.dao.api.domain.Todo;
 import org.kadyrov.todo.dao.api.exception.DAOException;
 import org.kadyrov.todo.dao.api.exception.ZeroRowsAffectedException;
@@ -9,11 +9,10 @@ import org.kadyrov.todo.dao.jdbc.mapper.TodoMapper;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class TodoDaoDB implements TodoDao {
+public class TodoDaoDB implements Dao<Todo, Integer> {
 
     Logger logger = Logger.getLogger(TodoDaoDB.class.getName());
 
@@ -98,9 +97,8 @@ public class TodoDaoDB implements TodoDao {
         }
     }
 
-
     @Override
-    public void removeTodo(Integer id) throws DAOException {
+    public void remove(Integer id) throws DAOException {
         try (Connection conn = manager.createConnection();
              PreparedStatement stmt = conn.prepareStatement(DELETE_BY_ID, Statement.RETURN_GENERATED_KEYS)) {
             conn.setAutoCommit(true);
