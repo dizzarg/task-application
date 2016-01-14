@@ -1,8 +1,8 @@
-package org.kadyrov.todo.web;
+package org.kadyrov.task.web;
 
 import org.junit.Ignore;
 import org.junit.Test;
-import org.kadyrov.todo.web.json.JsonReader;
+import org.kadyrov.task.web.json.JsonReader;
 
 import java.io.StringReader;
 

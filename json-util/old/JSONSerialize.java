@@ -1,6 +1,6 @@
-package org.kadyrov.todo.json;
+package org.kadyrov.task.json;
 
-import org.kadyrov.todo.json.exception.JsonBuilderException;
+import org.kadyrov.task.json.exception.JsonBuilderException;
 
 import java.lang.reflect.Field;
 

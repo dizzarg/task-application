@@ -1,4 +1,4 @@
-package org.kadyrov.todo.json;
+package org.kadyrov.task.json;
 
 public class JSONWriter {
 

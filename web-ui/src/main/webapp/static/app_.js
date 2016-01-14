@@ -23,7 +23,7 @@
        $('#deleteModal button.btn-danger').click(function(){
          console.log('click delete button');
          $.ajax({
-           url: '/todo/'+id,
+           url: '/task/'+id,
            type: 'DELETE'
          })
            .done(function() {
@@ -41,7 +41,7 @@
          console.log('Button clicked');
          var id = $(this).data('id');
          console.log('id='+id);
-         $.get('/todo/'+id, function(data){
+         $.get('/task/'+id, function(data){
            console.log(data);
             $("form[name='viewContent'] p:eq(0)").text(data.id);
             $("form[name='viewContent'] p:eq(1)").text(data.name);
@@ -55,21 +55,21 @@
        console.log('Button clicked');
        var id = $(this).data('id');
        console.log('id='+id);
-       $.get('/todo/'+id, function(data){
+       $.get('/task/'+id, function(data){
          console.log(data);
-         $("form[name='editTodo'] p:eq(0)").text(data.id);
-         $("form[name='editTodo'] input[name='name']").val(data.name);
-         $("form[name='editTodo'] textarea[name='desc']").val(data.desc);
-         $("form[name='editTodo'] p:eq(1)").text(data.createdt);
-         $("form[name='editTodo'] p:eq(2)").text(data.modifydt);
-         var $form = $("form[name='editTodo']");
+         $("form[name='edittask'] p:eq(0)").text(data.id);
+         $("form[name='edittask'] input[name='name']").val(data.name);
+         $("form[name='edittask'] textarea[name='desc']").val(data.desc);
+         $("form[name='edittask'] p:eq(1)").text(data.createdt);
+         $("form[name='edittask'] p:eq(2)").text(data.modifydt);
+         var $form = $("form[name='edittask']");
          $form.on('click', "button[type='button']", function(){
              $form.off('submit');
          });
          $form.on('submit',function() {
            console.log(JSON.stringify($form.serializeObject()));
            $.ajax({
-              url: "/todo/"+id,
+              url: "/task/"+id,
               type: 'PUT',
               data: JSON.stringify($form.serializeObject())
              }).done(function() {
@@ -87,9 +87,9 @@
        loadAll();
      });
      function loadAll(){
-       $.get('/todo', function(data) {
+       $.get('/task', function(data) {
           console.log(data.length + " loaded");
-          var $tblbody = $('table#todo TBODY');
+          var $tblbody = $('table#task TBODY');
           $tblbody.empty();
           $.each(data, function(idx, el){
             $tblbody.append('<tr>');

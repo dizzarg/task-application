@@ -1,13 +1,13 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>org.kadyrov.todo.dao</groupId>
+        <groupId>org.kadyrov.task.dao</groupId>
         <artifactId>data-access</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.kadyrov.todo.dao.jdbc</groupId>
+    <groupId>org.kadyrov.task.dao.jdbc</groupId>
     <artifactId>data-access-jdbc</artifactId>
     <packaging>jar</packaging>
 
@@ -30,7 +30,7 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.kadyrov.todo.dao.api</groupId>
+            <groupId>org.kadyrov.task.dao.api</groupId>
             <artifactId>data-access-api</artifactId>
             <version>${project.version}</version>
         </dependency>

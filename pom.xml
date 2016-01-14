@@ -2,8 +2,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.kadyrov.todo</groupId>
-    <artifactId>todo-application</artifactId>
+    <groupId>org.kadyrov.task</groupId>
+    <artifactId>task-application</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>json-util</module>
@@ -13,7 +13,7 @@
     </modules>
     <packaging>pom</packaging>
 
-    <name>todo-application</name>
+    <name>task-application</name>
     <url>http://maven.apache.org</url>
 
     <properties>
@@ -36,19 +36,19 @@
                 <scope>compile</scope>
             </dependency>
             <dependency>
-                <groupId>org.kadyrov.todo.dao.api</groupId>
+                <groupId>org.kadyrov.task.dao.api</groupId>
                 <artifactId>data-access-api</artifactId>
                 <version>${project.version}</version>
                 <scope>compile</scope>
             </dependency>
             <dependency>
-                <groupId>org.kadyrov.todo.dao.jdbc</groupId>
+                <groupId>org.kadyrov.task.dao.jdbc</groupId>
                 <artifactId>data-access-jdbc</artifactId>
                 <version>${project.version}</version>
                 <scope>compile</scope>
             </dependency>
             <dependency>
-                <groupId>org.kadyrov.todo.json</groupId>
+                <groupId>org.kadyrov.task.json</groupId>
                 <artifactId>json-util</artifactId>
                 <version>1.0-SNAPSHOT</version>
                 <scope>compile</scope>
@@ -107,7 +107,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>org.kadyrov.todo.swing.StartupApplication</mainClass>
+                            <mainClass>org.kadyrov.task.swing.StartupApplication</mainClass>
                         </manifest>
                         <manifestEntries>
                             <Version>${project.version}-${project.build}</Version>
@@ -115,77 +115,6 @@
                     </archive>
                 </configuration>
             </plugin>
-            <!--<plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <classpathPrefix>lib/</classpathPrefix>
-                            <classpathLayoutType>simple</classpathLayoutType>
-                            <mainClass>org.kadyrov.todo.swing.StartupApplication</mainClass>
-                        </manifest>
-                        <manifestEntries>
-                            <Version>${buildNumber}</Version>
-                        </manifestEntries>
-                    </archive>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>buildnumber-maven-plugin</artifactId>
-                <version>1.0</version>
-                <configuration>
-                    <format>{0}-{1,date,yyyyMMdd}</format>
-                    <items>
-                        <item>${project.version}</item>
-                        <item>timestamp</item>
-                    </items>
-                    <doCheck>false</doCheck>
-                    <doUpdate>false</doUpdate>
-                </configuration>
-            </plugin>-->
-            <!--<plugin>-->
-                <!--<groupId>com.akathist.maven.plugins.launch4j</groupId>-->
-                <!--<artifactId>launch4j-maven-plugin</artifactId>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<id>l4j-clui</id>-->
-                        <!--<phase>package</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>launch4j</goal>-->
-                        <!--</goals>-->
-                        <!--<configuration>-->
-                            <!--<headerType>gui</headerType>-->
-                            <!--<outfile>target/todoApplication.exe</outfile>-->
-                            <!--<jar>target/${project.artifactId}-${project.version}.jar</jar>-->
-                            <!--<errTitle>todoApplication</errTitle>-->
-                            <!--<icon>favicon.ico</icon>-->
-                            <!--<classPath>-->
-                                <!--<mainClass>com.khmb.block_v2.Block_v2App</mainClass>-->
-                                <!--<addDependencies>true</addDependencies>-->
-                                <!--<preCp>anything</preCp>-->
-                            <!--</classPath>-->
-                            <!--<jre>-->
-                                <!--<minVersion>${jdk.version}</minVersion>-->
-                            <!--</jre>-->
-                            <!--<versionInfo>-->
-                                <!--<fileVersion>${project.version}.0</fileVersion>-->
-                                <!--<txtFileVersion>${project.version}</txtFileVersion>-->
-                                <!--<fileDescription>Программа для блокировки счетов в соответствии со списком</fileDescription>-->
-                                <!--<copyright>Copyright © 2011 Kadyrov D.</copyright>-->
-                                <!--<productVersion>${project.version}.0</productVersion>-->
-                                <!--<txtProductVersion>${project.version}</txtProductVersion>-->
-                                <!--<companyName>Home</companyName>-->
-                                <!--<productName>todoApplication</productName>-->
-                                <!--<internalName>todoApplication</internalName>-->
-                                <!--<originalFilename>todoApplication.exe</originalFilename>-->
-                            <!--</versionInfo>-->
-                        <!--</configuration>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-            <!--</plugin>-->
         </plugins>
     </build>
 

@@ -1,4 +1,4 @@
-package org.kadyrov.todo.json;
+package org.kadyrov.task.json;
 
 import java.util.ArrayList;
 import java.util.List;
