@@ -22,12 +22,12 @@ public class TaskDaoDB implements Dao<Task, Integer> {
 
     public static final String FIND_ALL = "SELECT ID, NAME, DESCRIPTION, CREATE_DT, MODIFY_DT FROM TASKS ORDER BY ID";
     public static final String CREATE = "INSERT INTO TASKS(NAME, DESCRIPTION, MODIFY_DT) VALUES(?, ?, CURRENT_TIMESTAMP())";
-    public static final String UPDATE_BY_ID = "UPDATE TASKS SET NAME=?, DESCRIPTION=?, MODIFY_DT=CURRENT_TIMESTAMP()  WHERE ID=?";
+    public static final String UPDATE_BY_ID = "UPDATE TASKS SET NAME=?, DESCRIPTION=?, MODIFY_DT=CURRENT_TIMESTAMP() WHERE ID=?";
     public static final String DELETE_BY_ID = "DELETE FROM TASKS WHERE ID=?";
-    public static final String FIND_BY_ID = "SELECT ID, NAME, DESCRIPTION, CREATE_DT, MODIFY_DT FROM task WHERE ID=?";
+    public static final String FIND_BY_ID = "SELECT ID, NAME, DESCRIPTION, CREATE_DT, MODIFY_DT FROM TASKS WHERE ID=?";
 
     TaskMapper mapper = new TaskMapper();
-    DatabaseManager manager = new DatabaseManager();
+    DatabaseManager manager = DatabaseManager.INCANCE;
 
     @Override
     public List<Task> findAll() throws DAOException {

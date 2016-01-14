@@ -10,11 +10,6 @@ public class Task {
     private Date createdDate;
     private Date modifyDate;
 
-    /**
-     * need to Json
-     */
-    private Task(){}
-
     public Task(String name) {
         this.name = name;
     }

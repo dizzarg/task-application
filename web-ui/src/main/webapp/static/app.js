@@ -27,16 +27,14 @@
          $.ajax({
            url: '/task/'+id,
            type: 'DELETE'
-         })
-           .done(function() {
+         }).done(function() {
              loadAll();
              $('#deleteModal').modal('hide');
-           })
-           .fail(function() {
+         }).fail(function() {
              console.log('Cannot delete current task');
              $('.errorMessage > div').text('Cannot delete current task');
              $('.errorMessage').show();
-           });
+         });
        });
        $('#deleteModal').modal('show');
      });
@@ -50,10 +48,10 @@
            var $form = $("form[name='task']");
            $form.find('.staticRow').show();
            $form.find('p').show();
+           $form.find("*[name]").hide();
            $form.find('p:eq(0)').text(data.id);
            $form.find('p:eq(1)').text(data.name);
            $form.find('p:eq(2)').text(data.description);
-           $form.find("*[name]").hide();
            $form.find('p:eq(3)').text(data.createdDate);
            $form.find('p:eq(4)').text(data.modifyDate);
            $('#taskModal').modal('show');
@@ -105,7 +103,7 @@
      });
      $('#create').click(function(){
        $('#taskModalLabel').text('Create new Task');
-       $("button.btn-primary").hide();
+       $("button.btn-primary").show();
        $('.errorMessage').hide();
        var $form = $("form[name='task']");
        $form.find('.staticRow').hide();

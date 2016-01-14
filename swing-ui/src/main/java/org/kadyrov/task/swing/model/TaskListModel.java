@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This is simple model implementation
+ * This is simple model implementation of "Model View Controller" pattern.
  */
 public class TaskListModel extends AbstractListModel<Task> {
 

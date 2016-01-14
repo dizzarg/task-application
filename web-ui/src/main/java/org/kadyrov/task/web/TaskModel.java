@@ -6,8 +6,15 @@ import org.kadyrov.task.dao.api.exception.DAOException;
 import org.kadyrov.task.dao.jdbc.TaskDaoDB;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+/**
+ * This is simple model implementation for web application
+ */
 public class TaskModel {
+
+    private static final Logger logger = Logger.getLogger(TaskModel.class.getName());
 
     private static final String SUCCESS = "{\"result\":\"success\"}";
     private static final String FAILURE = "{\"result\":\"failure\"}";
@@ -26,7 +33,7 @@ public class TaskModel {
             response.append(SUCCESS);
         } catch (Exception e) {
             response.append(FAILURE);
-            e.printStackTrace();
+            logger.log(Level.SEVERE, e.getMessage(), e);
         }
         return response.toString();
     }
@@ -40,9 +47,10 @@ public class TaskModel {
             task.setId(id);
             task = taskDao.save(task);
             response.append(SUCCESS);
+            logger.info("Task was updated");
         } catch (Exception e) {
             response.append(FAILURE);
-            e.printStackTrace();
+            logger.log(Level.SEVERE, e.getMessage(), e);
         }
         return response.toString();
     }
@@ -54,9 +62,10 @@ public class TaskModel {
             Task task = gson.fromJson(request, Task.class);
             task = taskDao.save(task);
             response.append(SUCCESS);
+            logger.info("Task was created");
         } catch (Exception e) {
             response.append(FAILURE);
-            e.printStackTrace();
+            logger.log(Level.SEVERE, e.getMessage(), e);
         }
         return response.toString();
     }
@@ -67,9 +76,10 @@ public class TaskModel {
         try {
             List<Task> taskList = taskDao.findAll();
             response.append(gson.toJson(taskList));
+            logger.info("All tasks was loaded");
         } catch (DAOException e) {
             response.append(FAILURE);
-            e.printStackTrace();
+            logger.log(Level.SEVERE, e.getMessage(), e);
         }
         return response.toString();
     }
@@ -81,9 +91,10 @@ public class TaskModel {
             Integer id = Integer.parseInt(idParam);
             Task task = taskDao.findById(id);
             response.append(gson.toJson(task));
+            logger.info("Task was loaded");
         } catch (Exception e) {
             response.append(FAILURE);
-            e.printStackTrace();
+            logger.log(Level.SEVERE, e.getMessage(), e);
         }
         return response.toString();
     }

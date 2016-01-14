@@ -41,7 +41,7 @@ public class TaskController extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String request = ServletUtil.readRequestContent(req);
+        String request = ServletUtil.readRequestData(req);
         String idParam = ServletUtil.getPathInfo(req);
         String response = taskModel.edit( request, idParam);
         ServletUtil.fillResponse(resp, response);
@@ -50,7 +50,7 @@ public class TaskController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
         throws ServletException, IOException {
-        String request = ServletUtil.readRequestContent(req);
+        String request = ServletUtil.readRequestData(req);
         String response = taskModel.create(request);
         ServletUtil.fillResponse(resp, response);
     }

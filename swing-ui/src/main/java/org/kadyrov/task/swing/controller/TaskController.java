@@ -8,6 +8,9 @@ import org.kadyrov.task.swing.view.TaskView;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ *  This is simple controller implementation of "Model View Controller" pattern.
+ */
 public class TaskController {
 
     Logger logger = Logger.getLogger(TaskController.class.getName());
