@@ -33,8 +33,8 @@ public class TaskDaoDB implements Dao<Task, Integer> {
     public List<Task> findAll() throws DAOException {
         List<Task> results = new ArrayList<>();
         try (Connection conn = manager.createConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet resultSet = stmt.executeQuery(FIND_ALL)) {
+            Statement stmt = conn.createStatement();
+            ResultSet resultSet = stmt.executeQuery(FIND_ALL)) {
             conn.setAutoCommit(true);
             while (resultSet.next()) {
                 Task task = mapper.mapper(resultSet);
