@@ -1,6 +1,0 @@
-2016-01-14 12:38:00 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLException: Table "TASK" not found; SQL statement:
-SELECT ID, NAME, DESCRIPTION, CREATE_DT, MODIFY_DT FROM task ORDER BY ID [42102-190]
-2016-01-14 13:00:51 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLException: Table "TASK" not found; SQL statement:
-SELECT ID, NAME, DESCRIPTION, CREATE_DT, MODIFY_DT FROM task ORDER BY ID [42102-190]
