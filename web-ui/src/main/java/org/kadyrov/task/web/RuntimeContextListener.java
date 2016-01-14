@@ -7,14 +7,13 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
 @WebListener
-public class TaskContextListener implements ServletContextListener {
-
+public class RuntimeContextListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         TaskDaoDB taskDao = new TaskDaoDB( );
-        TaskController taskController = new TaskController(taskDao);
-        sce.getServletContext().setAttribute("taskController", taskController);
+        TaskModel taskModel = new TaskModel(taskDao);
+        sce.getServletContext().setAttribute("taskModel", taskModel);
     }
 
     @Override

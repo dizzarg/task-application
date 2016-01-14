@@ -15,7 +15,7 @@ public class ServletUtil {
         pw.flush();
     }
 
-    public static String getRequestContent(HttpServletRequest req) throws IOException {
+    public static String readRequestContent(HttpServletRequest req) throws IOException {
         StringBuilder request = new StringBuilder();
         BufferedReader bufferedReader = req.getReader();
         String line = null;

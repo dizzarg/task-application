@@ -34,6 +34,7 @@
            })
            .fail(function() {
              console.log('Cannot delete current task');
+             $('.errorMessage > div').text('Cannot delete current task');
              $('.errorMessage').show();
            });
        });
@@ -42,10 +43,10 @@
      $tbl.on('click', "a:contains('View')", function() {
          $('#taskModalLabel').text('View selected Task');
          $('.errorMessage').hide();
+         $("button.btn-primary").hide();
          var id = $(this).data('id');
          $.get('/task/'+id, function(data){
            console.log('id='+id+" : "+JSON.stringify(data));
-
            var $form = $("form[name='task']");
            $form.find('.staticRow').show();
            $form.find('p').show();
@@ -55,23 +56,13 @@
            $form.find("*[name]").hide();
            $form.find('p:eq(3)').text(data.createdDate);
            $form.find('p:eq(4)').text(data.modifyDate);
-
-//           $("form[name='task'] .staticRow").show();
-//           $("form[name='task'] p:eq(0)").text(data.id);
-//           $("form[name='task'] p:eq(1)").show();
-//           $("form[name='task'] p:eq(1)").text(data.name);
-//           $("form[name='task'] input[name='name']").hide();
-//           $("form[name='task'] p:eq(2)").show();
-//           $("form[name='task'] p:eq(2)").text(data.description);
-//           $("form[name='task'] textarea[name='description']").hide();
-//           $("form[name='task'] p:eq(3)").text(data.createdDate);
-//           $("form[name='task'] p:eq(4)").text(data.modifyDate);
            $('#taskModal').modal('show');
          });
        });
      $tbl.on('click', "a:contains('Edit')", function() {
      $('#taskModalLabel').text('Edit selected Task');
        $('.errorMessage').hide();
+       $("button.btn-primary").show();
        var id = $(this).data('id');
        $.get('/task/'+id, function(data){
          console.log('id='+id+" : "+ JSON.stringify(data));
@@ -86,17 +77,6 @@
          $form.find("textarea[name='description']").val(data.description);
          $form.find('p:eq(3)').text(data.createdDate);
          $form.find('p:eq(4)').text(data.modifyDate);
-//         $("form[name='task'] .staticRow").show();
-//         $("form[name='task'] p").show();
-//         $("form[name='task'] p:eq(0)").text(data.id);
-//         $("form[name='task'] p:eq(1)").hide();
-//         $("form[name='task'] input[name='name']").show();
-//         $("form[name='task'] input[name='name']").val(data.name);
-//         $("form[name='task'] p:eq(2)").hide();
-//         $("form[name='task'] textarea[name='description']").show();
-//         $("form[name='task'] textarea[name='description']").val(data.description);
-//         $("form[name='task'] p:eq(3)").text(data.createdDate);
-//         $("form[name='task'] p:eq(4)").text(data.modifyDate);
 
          $form.on('click', "button[type='button']", function(){
              $form.off('submit');
@@ -112,6 +92,7 @@
                  loadAll();
                  $form.off('submit');
              }).fail(function() {
+                $('.errorMessage > div').text('Cannot save current task')
                 $('.errorMessage').show();
              });
            return false;
@@ -124,6 +105,7 @@
      });
      $('#create').click(function(){
        $('#taskModalLabel').text('Create new Task');
+       $("button.btn-primary").hide();
        $('.errorMessage').hide();
        var $form = $("form[name='task']");
        $form.find('.staticRow').hide();
@@ -144,6 +126,7 @@
                loadAll();
                $form.off('submit');
            }).fail(function() {
+              $('.errorMessage > div').text('Cannot save current task')
               $('.errorMessage').show();
            });
          return false;
@@ -154,16 +137,17 @@
      function loadAll(){
        $.get('/task', function(data) {
           console.log(data.length + " loaded");
-          var $tblbody = $('table#task TBODY');
-          $tblbody.empty();
+          $('#tasks').find(".task").remove();
           $.each(data, function(idx, el){
-            $tblbody.append('<tr>');
-            $tblbody.append('<td>'+(idx+1)+'</td>');
-            $tblbody.append('<td>'+el.name+'</td>');
-            $tblbody.append('<td><a class="btn btn-default" id="'+el.id+'" data-id="'+el.id+'" data-toggle="taskModal" href="#">View</a></td>');
-            $tblbody.append('<td><a class="btn btn-primary" id="'+el.id+'" data-id="'+el.id+'" data-toggle="taskModal" href="#">Edit</a></td>');
-            $tblbody.append('<td><a class="btn btn-danger" id="'+el.id+'" data-id="'+el.id+'" data-toggle="deleteModal" href="#">Delete</a></td>');
-            $tblbody.append('</tr>');
+            var $div = $('<div class="row task"><div>');
+            $div.append('<div class="col-md-1">'+(idx+1)+'</div>');
+            $div.append('<div class="col-md-7">'+el.name+'</div>');
+            var $btns = $('<div class="col-md-4"></div>');
+            $btns.append('<div class="col-xs-4"><a class="btn btn-default" id="'+el.id+'" data-id="'+el.id+'" data-toggle="taskModal" href="#">View</a></div>');
+            $btns.append('<div class="col-xs-4"><a class="btn btn-primary" id="'+el.id+'" data-id="'+el.id+'" data-toggle="taskModal" href="#">Edit</a></div>');
+            $btns.append('<div class="col-xs-4"><a class="btn btn-danger" id="'+el.id+'" data-id="'+el.id+'" data-toggle="deleteModal" href="#">Delete</a></div>');
+            $div.append($btns);
+            $div.insertAfter($('#tasks .row').last());
           });
        });
      }

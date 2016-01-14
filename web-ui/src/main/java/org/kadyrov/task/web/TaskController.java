@@ -1,99 +1,58 @@
 package org.kadyrov.task.web;
 
-import com.google.gson.Gson;
-import org.kadyrov.task.dao.api.domain.Task;
-import org.kadyrov.task.dao.api.exception.DAOException;
-import org.kadyrov.task.dao.jdbc.TaskDaoDB;
+import org.kadyrov.task.web.util.ServletUtil;
 
-import java.util.List;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.UnavailableException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
-public class TaskController {
+@WebServlet("/task/*")
+public class TaskController extends HttpServlet {
 
-    private static final String SUCCESS = "{\"result\":\"success\"}";
-    private static final String FAILURE = "{\"result\":\"failure\"}";
+    TaskModel taskModel;
 
-    private final TaskDaoDB taskDao;
-
-    public TaskController(TaskDaoDB taskDaoDB) {
-        this.taskDao = taskDaoDB;
-    }
-
-    public String delete(String idParam) {
-        StringBuilder response = new StringBuilder();
-        try {
-            Integer id = Integer.parseInt(idParam);
-            taskDao.remove(id);
-            response.append(SUCCESS);
-        } catch (Exception e) {
-            response.append(FAILURE);
-            e.printStackTrace();
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        taskModel = (TaskModel) getServletContext().getAttribute("taskModel");
+        if (taskModel == null) {
+            throw new UnavailableException("Cannot initialize Task model.");
         }
-        return response.toString();
     }
 
-    public String edit(String request, String idParam) {
-        Gson gson = new Gson();
-        StringBuilder response = new StringBuilder();
-        try {
-            Integer id = Integer.parseInt(idParam);
-//            Task task = Json.objectFromString(request, Task.class);
-            Task task = gson.fromJson(request, Task.class);
-            task.setId(id);
-            task = taskDao.save(task);
-            response.append(SUCCESS);
-        } catch (Exception e) {
-            response.append(FAILURE);
-            e.printStackTrace();
-        }
-        return response.toString();
+    @Override
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String idParam = ServletUtil.getPathInfo(req);
+        String response = idParam.isEmpty()? taskModel.loadAll(): taskModel.loadOne(idParam);
+        ServletUtil.fillResponse(resp, response);
     }
 
-    public String create(String request) {
-        StringBuilder response = new StringBuilder();
-        Gson gson = new Gson();
-        try {
-//            Task task = Json.objectFromString(request, Task.class);
-            Task task = gson.fromJson(request, Task.class);
-            task = taskDao.save(task);
-//            JsonObject object = new JsonObject();
-//            object.add("result", new JsonPrimitive("success"));
-//            object.add("task", gson.toJsonTree(task));
-//            response.append(gson.toJson(object));
-            response.append(SUCCESS);
-        } catch (Exception e) {
-//            JsonObject object = new JsonObject();
-//            object.add("result", new JsonPrimitive("failure"));
-//            response.append(gson.toJson(object));
-            response.append(FAILURE);
-            e.printStackTrace(); // TODO:add logger
-        }
-        return response.toString();
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String idParam = ServletUtil.getPathInfo(req);
+        String response = taskModel.delete(idParam);
+        ServletUtil.fillResponse(resp, response);
     }
 
-    public String loadAll( ) {
-        StringBuilder response = new StringBuilder();
-        Gson gson = new Gson();
-        try {
-            List<Task> taskList = taskDao.findAll();
-            response.append(gson.toJson(taskList));
-        } catch (DAOException e) {
-            response.append(FAILURE);
-            e.printStackTrace();
-        }
-        return response.toString();
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String request = ServletUtil.readRequestContent(req);
+        String idParam = ServletUtil.getPathInfo(req);
+        String response = taskModel.edit( request, idParam);
+        ServletUtil.fillResponse(resp, response);
     }
 
-    public String loadOne(String idParam) {
-        StringBuilder response = new StringBuilder();
-        Gson gson = new Gson();
-        try {
-            Integer id = Integer.parseInt(idParam);
-            Task task = taskDao.findById(id);
-            response.append(gson.toJson(task));
-        } catch (Exception e) {
-            response.append(FAILURE);
-            e.printStackTrace();
-        }
-        return response.toString();
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+        throws ServletException, IOException {
+        String request = ServletUtil.readRequestContent(req);
+        String response = taskModel.create(request);
+        ServletUtil.fillResponse(resp, response);
     }
+
 }

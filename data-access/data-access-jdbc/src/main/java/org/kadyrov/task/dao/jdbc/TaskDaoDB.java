@@ -24,7 +24,7 @@ public class TaskDaoDB implements Dao<Task, Integer> {
     public static final String CREATE = "INSERT INTO TASKS(NAME, DESCRIPTION, MODIFY_DT) VALUES(?, ?, CURRENT_TIMESTAMP())";
     public static final String UPDATE_BY_ID = "UPDATE TASKS SET NAME=?, DESCRIPTION=?, MODIFY_DT=CURRENT_TIMESTAMP()  WHERE ID=?";
     public static final String DELETE_BY_ID = "DELETE FROM TASKS WHERE ID=?";
-    public static final String FIND_BY_ID = "SELECT ID, NAME, DESCRIPTION, CREATE_DT, MODIFY_DT FROM TASKS WHERE ID=?";
+    public static final String FIND_BY_ID = "SELECT ID, NAME, DESCRIPTION, CREATE_DT, MODIFY_DT FROM task WHERE ID=?";
 
     TaskMapper mapper = new TaskMapper();
     DatabaseManager manager = new DatabaseManager();
@@ -33,8 +33,8 @@ public class TaskDaoDB implements Dao<Task, Integer> {
     public List<Task> findAll() throws DAOException {
         List<Task> results = new ArrayList<>();
         try (Connection conn = manager.createConnection();
-            Statement stmt = conn.createStatement();
-            ResultSet resultSet = stmt.executeQuery(FIND_ALL)) {
+             Statement stmt = conn.createStatement();
+             ResultSet resultSet = stmt.executeQuery(FIND_ALL)) {
             conn.setAutoCommit(true);
             while (resultSet.next()) {
                 Task task = mapper.mapper(resultSet);
