@@ -1,5 +1,6 @@
 package org.kadyrov.task.dao.api;
 
+import org.kadyrov.task.dao.api.domain.Task;
 import org.kadyrov.task.dao.api.exception.DAOException;
 
 import java.util.List;
@@ -12,6 +13,8 @@ import java.util.List;
  * @param <PK> identifier of current entity
  */
 public interface Dao<T, PK> {
+
+    List<Task> findAll(int maxResult, int count) throws DAOException;
 
     /**
      * Find all elements.

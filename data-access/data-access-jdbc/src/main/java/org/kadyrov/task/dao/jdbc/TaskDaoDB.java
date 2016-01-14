@@ -30,12 +30,30 @@ public class TaskDaoDB implements Dao<Task, Integer> {
     DatabaseManager manager = DatabaseManager.INCANCE;
 
     @Override
+    public List<Task> findAll(int maxResult, int count) throws DAOException {
+        List<Task> results = new ArrayList<>();
+        try (Connection conn = manager.createConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet resultSet = stmt.executeQuery(FIND_ALL + " LIMIT "+maxResult+","+count)) {
+            conn.setAutoCommit(false);
+            while (resultSet.next()) {
+                Task task = mapper.mapper(resultSet);
+                results.add(task);
+            }
+            logger.info("All task was loaded from DB, those count is "+results.size());
+            return results;
+        } catch (SQLException e) {
+            throw new DAOException("Cannot load task", e);
+        }
+    }
+
+    @Override
     public List<Task> findAll() throws DAOException {
         List<Task> results = new ArrayList<>();
         try (Connection conn = manager.createConnection();
             Statement stmt = conn.createStatement();
             ResultSet resultSet = stmt.executeQuery(FIND_ALL)) {
-            conn.setAutoCommit(true);
+            conn.setAutoCommit(false);
             while (resultSet.next()) {
                 Task task = mapper.mapper(resultSet);
                 results.add(task);
